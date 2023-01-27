@@ -1,0 +1,47 @@
+.todo-pop-card {
+  /* margin: 5rem; */
+  padding: 5rem;
+  width: 800px;
+  background-color: rgba(147, 199, 255, 0.381);
+}
+
+@media only screen and (max-width: 576px) {
+  .todo-pop-card {
+    padding: 2rem;
+    background-color: rgba(0, 255, 255, 0.342);
+  }
+}
+
+.todo-item-top {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-around;
+  height: 4rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+@media only screen and (max-width: 576px) {
+  .todo-item-top {
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-around;
+    height: 6rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+  }
+}
+.todo-item-para {
+  font-size: x-large;
+  width: 30rem;
+  margin-left: 1rem;
+}
+@media only screen and (max-width: 576px) {
+  .todo-item-para {
+    font-size: large;
+    width: 30rem;
+    margin-left: 1rem;
+  }
+}
