@@ -2,13 +2,13 @@
   /* margin: 5rem; */
   padding: 5rem;
   width: 800px;
-  background-color: rgba(147, 199, 255, 0.381);
+  /* background-color: rgba(147, 199, 255, 0.381); */
 }
 
 @media only screen and (max-width: 576px) {
   .todo-pop-card {
     padding: 2rem;
-    background-color: rgba(0, 255, 255, 0.342);
+    /* background-color: rgba(0, 255, 255, 0.342); */
   }
 }
 
