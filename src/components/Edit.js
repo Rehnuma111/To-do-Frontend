@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import app_config from "../config";
 
@@ -8,6 +8,7 @@ const EditItem = () => {
   const url = app_config.api_url;
   const [initialData, setInitialData] = useState(null);
   const [isloading, setIsloading] = useState(true);
+  const navigate = useNavigate();
 
   const itemId = useParams();
 
@@ -49,6 +50,7 @@ const EditItem = () => {
             text: "Updated successfully",
           });
         }
+        navigate("/todolist")
         return res.json();
       })
       .catch((err) => {

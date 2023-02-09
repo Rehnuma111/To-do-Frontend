@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 
   MDBContainer,
@@ -14,8 +14,11 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Formik } from "formik";
 import Swal from "sweetalert2";
 import app_config from "../config";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Login = () => {
+
+  const [Loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
   const url = app_config.api_url;
@@ -26,6 +29,7 @@ const Login = () => {
   };
 
   const loginSubmit = (formdata) => {
+    setLoading(true);
     console.log(formdata);
     const reqOPT = {
       method: "POST",
@@ -52,10 +56,19 @@ const Login = () => {
           title: "Failed",
           text: "Email or password is incorrect!",
         })
-        
+       
       }
+      setLoading(false)
       return res.json();
-    });
+      
+    })
+    .then((data)=>{
+      console.log(data);
+      sessionStorage.setItem("user",JSON.stringify(data))
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
   };
   return (
     <div>
@@ -115,8 +128,8 @@ const Login = () => {
                         color="dark"
                         size="lg"
                       >
-                        Login
-                      </button>
+                      {Loading?<CircularProgress size="1.2rem"  style={{color:"white"}} />:"Login"}
+                       </button>
                       <p className="mb-5 " style={{ color: "#393f81" }}>
                         Don't have an account?
                         <NavLink to="/signup" style={{ color: "#393f81" }}>

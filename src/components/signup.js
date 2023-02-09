@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   MDBContainer,
   MDBCard,
@@ -10,8 +10,13 @@ import { Formik } from "formik";
 import app_config from "../config";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 
 const Signup = () => {
+
+  const [loading, setLoading] = useState(false);
+
+
   const navigate = useNavigate();
 
   const url = app_config.api_url;
@@ -23,6 +28,7 @@ const Signup = () => {
   };
 
   const signupSubmit = (formData) => {
+    setLoading(true);
     console.log(formData);
     fetch(url + "/user/add", {
       method: "POST",
@@ -41,6 +47,7 @@ const Signup = () => {
             navigate("/login");
           })
         }
+        setLoading(false);
         return res.json();
       })
       .then((data) => {
@@ -74,6 +81,7 @@ const Signup = () => {
                     placeholder="Enter Email"
                     value={values.email}
                     onChange={handleChange}
+                    required
                   />
                   <label>Name</label>
                   <MDBInput
@@ -83,6 +91,7 @@ const Signup = () => {
                     placeholder="Enter Name"
                     value={values.username}
                     onChange={handleChange}
+                    required
                   />
                   <label>Password</label>
                   <MDBInput
@@ -92,6 +101,7 @@ const Signup = () => {
                     placeholder="Enter Password"
                     value={values.password}
                     onChange={handleChange}
+                    required
                   />
                   <div className="d-flex flex-row justify-content-center mb-4">
                     <MDBCheckbox
@@ -105,7 +115,7 @@ const Signup = () => {
                     size="lg"
                     type="submit"
                   >
-                    Register
+                   {loading?<CircularProgress size="1.2rem" style={{color:"white"}}/>:"Register"}
                   </button>
                 </MDBCardBody>
               </MDBCard>

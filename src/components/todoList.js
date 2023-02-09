@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 import Swal from "sweetalert2";
 import { Formik } from "formik";
@@ -10,6 +10,8 @@ const TodoList = () => {
   const url = app_config.api_url;
 
   const [itemsArray, setItemsArray] = useState([]);
+
+  const [Loader, setLoader] = useState(false);
 
   const getItemDataFromBackend = async () => {
     const response = await fetch(url + "/todo/items");
@@ -44,6 +46,7 @@ const TodoList = () => {
   };
 
   const addItem = (data) => {
+    setLoader(true)
     fetch(url + "/todo/item", {
       method: "POST",
       body: JSON.stringify(data),
@@ -59,6 +62,7 @@ const TodoList = () => {
           });
           getItemDataFromBackend();
         }
+        setLoader(false);
         return res.json();
       })
       .then((data) => {
@@ -72,9 +76,9 @@ const TodoList = () => {
         <Formik initialValues={todoItems} onSubmit={addItem}>
           {({ values, handleSubmit, handleChange }) => (
             <form onSubmit={handleSubmit}>
-              <div className="d-flex justify-content-center">
+              <div className="d-flex justify-content-center mt-5" >
                 <div
-                  className="card todo-pop-card">
+                  className="card todo-pop-card" style={{backgroundColor:"#eee"}}>
                   <h2 className="text-center mb-5">Todo App</h2>
                   <input
                     className="form-control p-3"
@@ -83,12 +87,13 @@ const TodoList = () => {
                     id="item"
                     value={values.item}
                     onChange={handleChange}
+                    
                   />
                   <button
                     className="btn btn-primary mt-3 w-25 mx-auto"
                     type="submit"
                   >
-                    Add
+                   {Loader?<CircularProgress size="1.2rem" style={{color:"white"}}/>:"Add"}
                   </button>
                   <hr />
                   {/* {displayData()} */}
